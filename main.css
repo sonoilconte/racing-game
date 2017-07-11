@@ -1,9 +1,11 @@
 #container {
   margin: 50px 0 0 50px;
-  width: 160px;
-  height: 160px;
-  background-color: #AED6F1;
+  width: 1000px;
+  height: 200px;
   position: relative;
+  /*background-color: #AED6F1;*/
+  background-image: url('images/asphault-200.jpg');
+  background-repeat: repeat-x;
 
 }
 
@@ -16,12 +18,18 @@
 
 #player1 {
   background-color: #E74C3C;
-  top: 20px;
+  top: 30px;
   left: 0px;
 }
 
 #player2 {
   background-color: #8E44AD;
-  top: 100px;
+  top: 130px;
   left: 0px;
 }
+
+/*.road {
+  height: 200px;
+  width: auto;
+  display: inline-block;
+}*/

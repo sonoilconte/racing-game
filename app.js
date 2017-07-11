@@ -26,67 +26,51 @@ console.log("sanity check");
 //car constructor
 function Car(name){
   this.name = name;
-  this.position = 0;
   this.image = '';
-  this.rank = null;
-}
-
-//global variable rank for keeping track of the ranks of the cars
-// let rank = 1;
-
-//car method that will be on all cars
-Car.prototype.drive = function(){
-
-  if (this.position < 100){
-    console.log(this.name + "drove the car!")
-    this.position += 10;
-    $('#' + this.name).css('left', this.position + 'px');
-  }
-  else if (this.racing){
-    this.rank = rank;
-    rank += 1;
-    this.racing = false;
-    console.log(`${this.name} is ranked #${this.rank}!`);
-  }
-
+  // this.racing = false;
+  // this.position = 0;
+  // this.rank = null;
 }
 
 Car.prototype.start = function(){
   this.position = 0;
-  this.rank = null;
+  this.racing = false;
+  // this.rank = null;
 }
 
+//car method that will be on all cars
+Car.prototype.drive = function(){
+
+  if (this.racing){
+    console.log(this.name + "drives one unit!")
+    this.position += 10;
+    $('#' + this.name).css('left', this.position + 'px');
+  }
+  // else if (this.racing){
+  //   // this.rank = rank;
+  //   // rank += 1;
+  //   this.racing = false;
+  //   // console.log(`${this.name} is ranked #${this.rank}!`);
+  // }
+
+}
 //we will return 1 for the global variable rank such that we can rank the cars as the race goes
 //
-let rank = 1;
+// let rank = 1;
 
 //create two car objects
 let car1 = new Car('player1');
 let car2 = new Car('player2');
 
 
-function race(){
-  console.log("Start your engines...race!");
-
-  car1.racing = true;
-  car2.racing = true;
-  //listen for keypresses
-    $(document).on('keypress', function(event){
-      //if d pushed
-      if (event.which === 100){
-        car1.drive();
-      }
-      //if l pushed
-      if (event.keyCode === 108){
-        car2.drive();
-      }
-    });
-}
+let raceOn = false;
 
 $(document).ready(function(){
-  car1.start();
-  car2.start();
+
   $('#begin').on('click', function(){
+    raceOn = true;
+    car1.start();
+    car2.start();
     race();
   });
 
@@ -96,4 +80,48 @@ $(document).ready(function(){
     $('#' + car1.name).css('left', car1.position + 'px');
     $('#' + car2.name).css('left', car2.position + 'px');
   });
+
 });
+
+//could put all of this race function as method on each car object
+function race(){
+  console.log("Start your engines...race!");
+
+  if (raceOn){
+    car1.racing = true;
+    car2.racing = true;
+
+    //listen for keypresses
+    $(document).on('keypress', function(event){
+      if(raceOn){
+        //if d pushed
+        if(event.which === 100){
+          if (car1.position < 100){
+            car1.drive();
+          }
+          else{
+            car1.racing = false;
+            console.log("car 1 finished");
+          }
+        }
+        //if l pushed
+        if (event.keyCode === 108){
+          if(car2.position < 100){
+            car2.drive();
+          }
+          else{
+            car2.racing = false;
+            console.log("car 2 finished");
+          }
+        }
+        if (!car1.racing && !car2.racing){
+          raceOn = false;
+          console.log("raceOn is " + raceOn);
+        }
+      }
+    });
+  }
+  else{
+    return;
+  }
+}
