@@ -5,16 +5,22 @@ To add:
   **keep doing it while position is still below threshold
 **when there's a win, stop the race
 **reset button event listener- returns us to before we clicked begin
-find the time it took each player to finish
-increment score of the winning player
+**add animate to drive
 
-use timer that displays during race
-record finishing times and put them in the DOM
 
 add images for cars, and css to indicate a track
+tell players on screen how to players
+add to readme
+commit, push
+gh pages branch
+add to personal site
+
 if time be sure the buttons are only active when the're supposed to be active
 
 ****more advanced later*****
+-use timer that displays during race
+-find the time it took each player to finish and render in DOM
+-increment score of the winning player
 -allow for car to change orientation
 So there will be 3 buttons for each player- forward, rotate left, rotate right
 the drive method will need to change based on what orientation is used at any given point
@@ -25,26 +31,33 @@ the drive method will need to change based on what orientation is used at any gi
 console.log("sanity check");
 
 //car constructor
-function Car(name, key){
+//use this to also set the url for the image
+function Car(name, key, imageUrl){
   this.name = name;
   this.key = key;
-  this.image = '';
+  this.imageUrl = imageUrl;
 }
 
 //start method that will be on all cars
+//put the car image into the DOM here
 Car.prototype.start = function(){
   this.position = 0;
   this.racing = true;
+  console.log(this.name + "started");
+  $('#' + this.name).html(`<img src="${this.imageUrl}">`);
+// $('#player1').html('<img src="images/ferrari.png">');
+
 }
 
 //drive method that will be on all cars
 Car.prototype.drive = function(key){
 
   if(key === this.key){
-    if (this.position < 100){
+    if (this.position < 820){
       console.log(this.name + "drives one unit!")
-      this.position += 10;
-      $('#' + this.name).css('left', this.position + 'px');
+      this.position += 20;
+      console.log(this.position);
+      $('#' + this.name).animate({left: '+=20px'}, 200);
     }
     else{
       this.racing = false;
@@ -54,8 +67,8 @@ Car.prototype.drive = function(key){
 }
 
 //create two car objects
-let car1 = new Car('player1', 100);
-let car2 = new Car('player2', 108);
+let car1 = new Car('player1', 100, 'images/ferrari.png');
+let car2 = new Car('player2', 108, 'images/vw-blue.png');
 
 //global variable for whether race is going or not
 let raceOn = false;
@@ -91,36 +104,10 @@ $(document).ready(function(){
 
 
 function setupCars(){
+  car1.start();
+  car2.start();
   $('#begin').on('click', function(){
     console.log("The race is on, raceOn is " + true);
     raceOn = true;
-    car1.start();
-    car2.start();
   });
 }
-
-//could put all of this race function as method on each car object
-
-//
-// function race(){
-//   console.log("Start your engines...race!");
-//
-//   if (raceOn){
-//     car1.racing = true;
-//     car2.racing = true;
-//
-//     //listen for keypresses
-//     $(document).on('keypress', function(event){
-//       if(raceOn){
-//         //if d pushed
-//         if (!car1.racing && !car2.racing){
-//           raceOn = false;
-//           console.log("raceOn is " + raceOn);
-//         }
-//       }
-//     });
-//   }
-//   else{
-//     return;
-//   }
-// }
