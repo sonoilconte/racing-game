@@ -107,7 +107,7 @@ $(document).ready(function(){
 
 function setupCars(){
   countRank = 1;
-  $('#message').html("<p>Ferrari drives by pushing d, Bug drives by pushing k</p><p>Push Begin when you're ready to race!</p>");
+  $('#message').html("<p>Ferrari drives by pushing d, Bug drives by pushing K</p><p>Push Begin when you're ready to race!</p>");
   car1.start();
   car2.start();
   $('#begin').on('click', function(){
