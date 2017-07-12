@@ -24,7 +24,7 @@ button {
   text-align: center;
   margin-top: 50px;
   font-size: 1.5em;
-  height: 100px
+  height: 150px;
 }
 
 #message p {
@@ -32,14 +32,14 @@ button {
 }
 
 #container {
-  margin: 50px 0 0 50px;
+  margin: 0 auto;
   width: 1000px;
   height: 200px;
   position: relative;
   /*background-color: #AED6F1;*/
   background-image: url('images/asphault-200.jpg');
   background-repeat: repeat-x;
-  margin: 0 auto;
+  /*master branch*/
 
 }
 
