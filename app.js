@@ -43,9 +43,7 @@ function Car(name, key, imageUrl){
 Car.prototype.start = function(){
   this.position = 0;
   this.racing = true;
-  console.log(this.name + "started");
   $('#' + this.name).html(`<img src="${this.imageUrl}">`);
-// $('#ferrari').html('<img src="images/ferrari.png">');
 
 }
 
