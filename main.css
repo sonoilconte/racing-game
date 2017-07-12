@@ -39,6 +39,7 @@ button {
   /*background-color: #AED6F1;*/
   background-image: url('images/asphault-200.jpg');
   background-repeat: repeat-x;
+  margin: 0 auto;
 
 }
 
