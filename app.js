@@ -1,22 +1,17 @@
 /*
-To add:
+Added-
 **begin button event listener
   **run the race only after it's pushed
-  **keep doing it while position is still below threshold
-**when there's a win, stop the race
-**reset button event listener- returns us to before we clicked begin
-**add animate to drive
+  **keep letting both cars race while positions are still below threshold
+**animate drive
 **add images for cars, and css to indicate a track
 **tell players on screen how to play
-**say who wins/ranking
-add to readme
-commit, push
-gh pages branch
+**say who wins/ranking- append in the DOM
+**readme
+**ensure buttons are only active when the're supposed to be active
 add to personal site
 
-if time be sure the buttons are only active when the're supposed to be active
-
-****more advanced later*****
+****more advanced, to add later*****
 -use timer that displays during race
 -find the time it took each player to finish and render in DOM
 -increment score of the winning player
@@ -30,7 +25,7 @@ the drive method will need to change based on what orientation is used at any gi
 console.log("sanity check");
 
 //car constructor
-//use this to also set the url for the image
+//set name (will be element id), key to push, image URL
 function Car(name, key, imageUrl){
   this.name = name;
   this.key = key;
@@ -39,7 +34,7 @@ function Car(name, key, imageUrl){
 }
 
 //start method that will be on all cars
-//put the car image into the DOM here
+//put the car image into the DOM
 Car.prototype.start = function(){
   this.position = 0;
   this.racing = true;
@@ -47,13 +42,14 @@ Car.prototype.start = function(){
 
 }
 
+//to count the ranks of the cars as they finish
 let countRank = 1;
+
 //drive method that will be on all cars
 Car.prototype.drive = function(key){
   if(this.racing){
     if(key === this.key){
       if (this.position < 820){
-        // console.log(this.name + "drives one unit!")
         this.position += 20;
         console.log(this.position);
         $('#' + this.name).animate({left: '+=20px'}, 150);
@@ -62,7 +58,6 @@ Car.prototype.drive = function(key){
         this.racing = false;
         $('#message').append(`<p>${this.name} is ranked #${countRank}</p>`)
         countRank += 1;
-        // console.log(this.name + " finished the race");
       }
     }
   }
@@ -79,7 +74,6 @@ $(document).ready(function(){
 
   //listen for user keypress
   $(document).on('keypress', function(event){
-    // console.log("key is pressed")
     if(raceOn){
       if(car1.racing || car2.racing){
         car1.drive(event.which);
@@ -103,7 +97,6 @@ $(document).ready(function(){
   });
 
 });
-
 
 function setupCars(){
   countRank = 1;
